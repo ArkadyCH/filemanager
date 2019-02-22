@@ -1,0 +1,42 @@
+body{
+    margin: auto 500px;
+    font-family: Raleway, sans-serif;
+}
+.file-manager{
+    border: 2px solid black;
+    display: flex;
+    flex-direction: column;
+    margin: 15px 0;
+    padding: 15px;
+}
+.file-manager__pager{
+    display: flex;
+}
+.file-manager__pager-directory{
+    padding-left: 5px;
+}
+.file-manager__pager-directory--hidden{
+    display: none;
+}
+.file-manager__directories{
+    margin-top: 15px;
+}
+.file-manager__directory{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    max-width: 250px;
+    margin-bottom: 15px;
+    cursor: pointer;
+    user-select: none;
+}
+.file-manager__directory:last-child{
+    margin-bottom: 0;
+}
+.file-manager__directory-folder{
+    padding: 10px;
+    border-right: 1px solid black;
+}
+.file-manager__directory-name{
+    padding-left: 10px;
+}
