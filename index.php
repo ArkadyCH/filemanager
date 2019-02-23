@@ -2,7 +2,7 @@
 <html>
 <head>
     <title>File Manager</title>
-    <meta charset="Utg-8">
+    <meta charset="Utf-8">
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="/css/style.css" rel="stylesheet">
 </head>
@@ -13,25 +13,18 @@
         <div class="file-manager__pager-directory--hidden">Directory Name</div>
     </div>
     <div class="file-manager__directories">
-        <div class="file-manager__directory">
-            <div class="file-manager__directory-folder">
-                <img class="file-manager__directory-img" src="/img/directory.png">
-            </div>
-            <div class="file-manager__directory-name">Directory 1</div>
-        </div>
-        <div class="file-manager__directory">
-            <div class="file-manager__directory-folder">
-                <img class="file-manager__directory-img" src="/img/directory.png">
-            </div>
-            <div class="file-manager__directory-name">Directory 2</div>
-        </div>
-        <div class="file-manager__directory">
-            <div class="file-manager__directory-folder">
-                <img class="file-manager__directory-img" src="/img/directory.png">
-            </div>
-            <div class="file-manager__directory-name">Directory 3</div>
-        </div>
     </div>
+</div>
+<div class="create-directory">
+    <form class="create-directory__form">
+        <div class="create-directory__input-name">Выберать директорию:</div>
+        <select>
+            <option value=".">/</option>
+        </select>
+        <div class="create-directory__input-name">Введите название:</div>
+        <input class="create-directory__input" type="text" placeholder="Название">
+        <input class="create-directory__submit" type="submit" value="Создать">
+    </form>
 </div>
 <script
         src="https://code.jquery.com/jquery-3.3.1.js"

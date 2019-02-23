@@ -3,7 +3,7 @@ body{
     font-family: Raleway, sans-serif;
 }
 .file-manager{
-    border: 2px solid black;
+    border: 1px solid black;
     display: flex;
     flex-direction: column;
     margin: 15px 0;
@@ -27,8 +27,9 @@ body{
     border: 1px solid black;
     max-width: 250px;
     margin-bottom: 15px;
-    cursor: pointer;
     user-select: none;
+    cursor: pointer;
+    height: 43px;
 }
 .file-manager__directory:last-child{
     margin-bottom: 0;
@@ -38,5 +39,11 @@ body{
     border-right: 1px solid black;
 }
 .file-manager__directory-name{
+    color: black;
     padding-left: 10px;
+}
+.create-directory__form{
+    display: flex;
+    flex-direction: column;
+    max-width: 250px;
 }
