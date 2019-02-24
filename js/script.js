@@ -60,19 +60,27 @@ function generateHTML(data){
     directoriesSelector.empty();
     directoriesSelector.append(directoriesHTML);
 }
+
 function createPager(path){
     let pagerPath = path.split('\\');
     let pagerSelector = $('.file-manager__pager');
-
+    let result = getPathAndName(path , path.split('\\'));
     let pagerHTML= new Array();
     for(let item in pagerPath){
         pagerHTML +=
-            '<div class="file-manager__pager-directory" data-path="'+getPathByName(path , pagerPath[item])+'">'+pagerPath[item]+'\\</div>'
+            '<div class="file-manager__pager-directory" data-path="'+result[item]+'">'+pagerPath[item]+'\\</div>'
         ;
     }
     pagerSelector.empty();
     pagerSelector.append(pagerHTML);
 }
-function getPathByName(path , name){
-    return path.substring(0 , path.indexOf(name))+name;
+
+function getPathAndName(path , array){
+    let result = new Array();
+    array.reverse();
+    for(let item in array){
+        path = path.substring(0,path.lastIndexOf(array[item]));
+        result.push(path+array[item]);
+    }
+    return result.reverse();
 }
