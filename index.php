@@ -9,8 +9,6 @@
 <body>
 <div class="file-manager">
     <div class="file-manager__pager">
-        <div class="file-manager__pager-slash">/</div>
-        <div class="file-manager__pager-directory--hidden">Directory Name</div>
     </div>
     <div class="file-manager__directories">
     </div>

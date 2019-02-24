@@ -13,7 +13,7 @@ body{
     display: flex;
 }
 .file-manager__pager-directory{
-    padding-left: 5px;
+    cursor: pointer;
 }
 .file-manager__pager-directory--hidden{
     display: none;
@@ -25,7 +25,7 @@ body{
     display: flex;
     align-items: center;
     border: 1px solid black;
-    max-width: 250px;
+    max-width: 300px;
     margin-bottom: 15px;
     user-select: none;
     cursor: pointer;
@@ -46,4 +46,7 @@ body{
     display: flex;
     flex-direction: column;
     max-width: 250px;
+}
+.file-manager__pager-slash{
+    cursor: pointer;
 }
