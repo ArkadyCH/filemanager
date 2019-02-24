@@ -14,13 +14,9 @@
     </div>
 </div>
 <div class="create-directory">
-    <form class="create-directory__form">
-        <div class="create-directory__input-name">Выберать директорию:</div>
-        <select>
-            <option value=".">/</option>
-        </select>
+    <form class="create-directory__form" onsubmit="return false;">
         <div class="create-directory__input-name">Введите название:</div>
-        <input class="create-directory__input" type="text" placeholder="Название">
+        <input class="create-directory__input" type="text" placeholder="Название" name="name" value="New folder">
         <input class="create-directory__submit" type="submit" value="Создать">
     </form>
 </div>

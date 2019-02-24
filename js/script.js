@@ -1,23 +1,30 @@
 $( document ).ready(function() {
-    postAjax("getDirectories");
+    getDirectoriesByPath("getDirectories");
+    let root = ".";
+    //getAllDirectories("getAllDirectories");
 
     $('.file-manager__directories').on("click", ".file-manager__directory", function () {
         let path = $(this).get(0).getAttribute('data-path');
         let type = $(this).get(0).getAttribute('data-type');
 
         if(type === "dir"){
-            postAjax(path);
-            createPager(path);
+            updateContent(path);
+            root = path;
         }
     });
     $('.file-manager__pager').on("click", ".file-manager__pager-directory", function () {
         let path = $(this).get(0).getAttribute('data-path');
-        createPager(path);
-        postAjax(path);
+        updateContent(path);
+        root = path;
+    });
+
+    $('.create-directory__form').submit(function(e) {
+        let form = $(this);
+        createDirictory(form,root);
     });
 });
 
-function postAjax(path){
+function getDirectoriesByPath(path){
     $.ajax({
         type: "POST",
         url: "filemanager.php",
@@ -26,13 +33,39 @@ function postAjax(path){
         dataType: "json"
     });
 }
+function getAllDirectories(data){
+    $.ajax({
+        type: "POST",
+        url: "filemanager.php",
+        data: { 'action': data},
+        success: outputData,
+        dataType: "json"
+    });
+}
+function createDirictory(form,root){
+    let name = $( "input[type=text][name=name]" ).val();
+    $.ajax({
+        type: "post",
+        url: "filemanager.php",
+        data: {'name' : name , 'path' : root},
+        success: function(data){
+            updateContent(root);
+        }
+    });
+}
+function outputData(data){
+    let optionsHTML = new Array();
+    let select = $('.create-directory__select');
+    for(let item in data){
+        optionsHTML += '<option value="'+data[item]+'">'+data[item]+'</option>';
+    }
 
+    select.append(optionsHTML);
+}
 function generateHTML(data){
     let directoriesHTML= new Array();
 
     let directoriesSelector = $(".file-manager__directories");
-    console.log(data);
-
 
     for(let item in data){
         if(data[item].type === "file"){
@@ -83,4 +116,9 @@ function getPathAndName(path , array){
         result.push(path+array[item]);
     }
     return result.reverse();
+}
+
+function updateContent(path){
+    createPager(path);
+    getDirectoriesByPath(path);
 }
