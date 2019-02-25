@@ -1,6 +1,17 @@
 body{
-    margin: auto 500px;
+    width: 1330px;
+    margin:  0 auto;
     font-family: Raleway, sans-serif;
+}
+h1{
+    font-size: 22px;
+}
+input{
+    font-family: Raleway, sans-serif;
+}
+.section__container{
+    display: flex;
+    justify-content: center;
 }
 .file-manager{
     border: 1px solid black;
@@ -9,6 +20,7 @@ body{
     margin: 15px 0;
     padding: 15px;
     min-height: 300px;
+    min-width: 380px;
 }
 .file-manager__pager{
     display: flex;
@@ -27,10 +39,38 @@ body{
     align-items: center;
     border: 1px solid black;
     max-width: 300px;
-    margin-bottom: 15px;
     user-select: none;
     cursor: pointer;
+    min-width: 300px;
+}
+.file-manager__delete{
+    padding: 10px;
+    cursor: pointer;
+    border: 1px solid #ff3333;
+    margin-left: 5px;
+}
+.file-manager__delete:hover{
+    background: #ff9a9a;
+}
+.file-manager__delete-icon{
+    max-width: 20px;
+    max-height: 20px;
+}
+.file-manager__container{
+    display: flex;
+    margin-bottom: 15px;
     height: 43px;
+}
+.file-manager__fle{
+    display: flex;
+    align-items: center;
+    border: 1px solid black;
+    max-width: 300px;
+    user-select: none;
+    cursor: pointer;
+    min-width: 300px;
+    height: 43px;
+    margin-bottom: 15px;
 }
 .file-manager__directory:last-child{
     margin-bottom: 0;
@@ -43,11 +83,36 @@ body{
     color: black;
     padding-left: 10px;
 }
-.create-directory__form{
+form{
     display: flex;
     flex-direction: column;
     max-width: 250px;
 }
+input{
+    margin-top: 10px;
+    height: 19px;
+}
+input[type = "submit"]{
+    margin-top: 5px;
+    height: 25px;
+    background: #fff;
+    border: 1px solid #7a4dff;
+    cursor: pointer;
+}
 .file-manager__pager-slash{
     cursor: pointer;
+}
+
+input[type = "submit"]:hover{
+    background: #b39aff;
+    color: #ffffff;
+}
+.create-directory{
+    margin-left: 20px;
+}
+.upload-file{
+    margin-left: 20px;
+}
+.upload-file input[type = "submit"]{
+    margin-top: 11px;
 }

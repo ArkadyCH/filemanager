@@ -8,6 +8,9 @@ else if($_POST['action'] == "getAllDirectories"){
 else if($_POST['name']){
     createDirectory($_POST);
 }
+else if($_POST['action'] == "deleteDirectory"){
+    deleteDirectory($_POST['path']);
+}
 else{
     getDirectoriesByPath($_POST['action']);
 }
@@ -47,4 +50,19 @@ function createDirectory($data){
     if ($countNesting <= 10 && !file_exists($path)) {
         mkdir($path, 0700 , true);
     }
+}
+function deleteDirectory($dir){
+    $iterator = new RecursiveIteratorIterator(
+        new RecursiveDirectoryIterator(iconv('utf-8', 'cp1251', $dir)),
+        RecursiveIteratorIterator::CHILD_FIRST
+    );
+
+    foreach ($iterator as $path) {
+        if ($path->isDir()) {
+            rmdir((string)$path);
+        } else {
+            unlink((string)$path);
+        }
+    }
+    rmdir($dir);
 }

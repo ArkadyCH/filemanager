@@ -18,9 +18,17 @@ $( document ).ready(function() {
         root = path;
     });
 
-    $('.create-directory__form').submit(function(e) {
+    $('.file-manager__directories').on("click", ".file-manager__delete", function () {
+        let path = $(this).get(0).getAttribute('data-path');
+        deleteDirectory(path,root);
+    });
+
+    $('.create-directory__form').submit(function() {
         let form = $(this);
         createDirictory(form,root);
+    });
+    $('.upload-file__form').submit(function() {
+        alert('file is uploaded')
     });
 });
 
@@ -53,6 +61,16 @@ function createDirictory(form,root){
         }
     });
 }
+function deleteDirectory(path,root){
+    $.ajax({
+        type: "post",
+        url: "filemanager.php",
+        data: {'action' : 'deleteDirectory' , 'path' : path},
+        success: function(data){
+            updateContent(root);
+        }
+    });
+}
 function outputData(data){
     let optionsHTML = new Array();
     let select = $('.create-directory__select');
@@ -76,16 +94,21 @@ function generateHTML(data){
     for(let item in data){
         if(data[item].type === "dir" && data[item].name.charAt(0) !== "."){
             directoriesHTML +=
-                '<div class="file-manager__directory" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
-                '    <div class="file-manager__directory-folder">\n' +
-                '        <img class="file-manager__directory-img" src="/img/directory.png">\n' +
-                '    </div>\n' +
-                '    <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +
-                '</div>';
+                '<div class="file-manager__container">\n' +
+                '    <div class="file-manager__directory" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
+                '        <div class="file-manager__directory-folder">\n' +
+                '            <img class="file-manager__directory-img" src="/img/directory.png">\n' +
+                '        </div>\n' +
+                '        <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +
+                '    </div>\n';
+            if(data[item].name !== "js" && data[item].name !== "css" && data[item].name !== "img"){
+                directoriesHTML += '    <div class="file-manager__delete" data-path="'+data[item].path+'"><img class="file-manager__delete-icon"src="/img/delete.png"></div>\n'
+            };
+            directoriesHTML += '</div>';
         }
         else if(data[item].name.charAt(0) !== "."){
             directoriesHTML +=
-                '<div class="file-manager__directory" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
+                '<div class="file-manager__fle" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
                 '    <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +
                 '</div>';
         }
