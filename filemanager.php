@@ -1,18 +1,18 @@
 <?php
 if($_POST['action'] == "getDirectories"){
-    getDirectoriesByPath(".");
+    getDirectoriesByPath($_POST['path']);
 }
 else if($_POST['action'] == "getAllDirectories"){
     getAllDirectories();
 }
-else if($_POST['name']){
+else if($_POST['action'] == "createDirectory"){
     createDirectory($_POST);
 }
 else if($_POST['action'] == "deleteDirectory"){
     deleteDirectory($_POST['path']);
 }
-else{
-    getDirectoriesByPath($_POST['action']);
+else if($_FILES){
+    uploadFile($_POST['path'],$_FILES['file']);
 }
 
 function getDirectoriesByPath($path){
@@ -65,4 +65,18 @@ function deleteDirectory($dir){
         }
     }
     rmdir($dir);
+}
+
+function uploadFile($path , $file){
+    $fileName = iconv('utf-8', 'cp1251',$file['name']);
+    $extensions = array("txt","jpg","jpeg","gif","ico");
+    $ext = pathinfo( $fileName, PATHINFO_EXTENSION);
+    $fullPath = $path . '\\' . $fileName;
+    if ( $file['error'] == 0) {
+        if(in_array($ext , $extensions)){
+            move_uploaded_file($file['tmp_name'], $fullPath);
+        }
+        else
+            echo $file['name'];
+    }
 }

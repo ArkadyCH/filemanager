@@ -116,3 +116,26 @@ input[type = "submit"]:hover{
 .upload-file input[type = "submit"]{
     margin-top: 11px;
 }
+.file-manager__pager-container{
+    display: flex;
+    justify-content: space-between;
+}
+.file-manager__sort{
+    position: relative;
+}
+.file-manager__sort-img{
+    padding: 0;
+    cursor: pointer;
+}
+.file-manager__sort-options{
+    display: none;
+    position: absolute;
+
+}
+.file-manager__sort-option{
+    border: 1px solid black;
+    padding: 10px;
+    cursor: pointer;
+    width: 100px;
+    background: #ffffff;
+}

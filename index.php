@@ -9,7 +9,17 @@
 <body>
 <div class="section__container">
     <div class="file-manager">
-        <div class="file-manager__pager">
+        <div class="file-manager__pager-container">
+            <div class="file-manager__pager">
+            </div>
+            <div class="file-manager__sort">
+                <img class="file-manager__sort-img" src="/img/sort.png">
+                <div class="file-manager__sort-options">
+                    <div class="file-manager__sort-option">По порядку</div>
+                    <div class="file-manager__sort-option">По имени</div>
+                    <div class="file-manager__sort-option">По размеру</div>
+                </div>
+            </div>
         </div>
         <div class="file-manager__directories">
         </div>
@@ -24,7 +34,7 @@
     </div>
     <div class="upload-file">
         <h1>Загрузить файл</h1>
-        <form class="upload-file__form" onsubmit="return false;">
+        <form class="upload-file__form" onsubmit="return false;" enctype="multipart/form-data">
             <div class="upload-file__input-name">Выберите файл:</div>
             <input class="upload-file__input" type="file" placeholder="Название" name="file"">
             <input class="upload-file__submit" type="submit" value="Создать">
