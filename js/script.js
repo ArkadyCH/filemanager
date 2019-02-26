@@ -2,7 +2,6 @@ $( document ).ready(function() {
     let root = ".";
     let sortName = "name/asc";
     updateContent(root,sortName);
-    //getAllDirectories("getAllDirectories");
 
     $('.file-manager__directories').on("click", ".file-manager__directory", function () {
         let path = $(this).get(0).getAttribute('data-path');
@@ -29,6 +28,13 @@ $( document ).ready(function() {
             option.css('display','block');
         }else
             option.css('display','none');
+    });
+    $('.file-manager__search-form').on("keyup", ".file-manager__search-text", function () {
+        let str = $(this).val();
+        if(str.length > 0){
+            searchData(str);
+        }else
+            updateContent('.',sortName)
     });
     $('.file-manager__sort-options').on("click", ".file-manager__sort-option", function () {
         let option = $(this);
@@ -79,12 +85,14 @@ function getDirectoriesByPath(path,sort){
         dataType: "json"
     });
 }
-function getAllDirectories(data){
+function searchData(str){
     $.ajax({
         type: "POST",
         url: "filemanager.php",
-        data: { 'action': data},
-        success: outputData,
+        data: { 'action': 'searchData' , 'name' : str},
+        success: function(data){
+            generateHTML(data);
+        },
         dataType: "json"
     });
 }
@@ -130,19 +138,10 @@ function uploadFile(path){
     }
     else alert('Выберите файл!');
 }
-function outputData(data){
-    let optionsHTML = new Array();
-    let select = $('.create-directory__select');
-    for(let item in data){
-        optionsHTML += '<option value="'+data[item]+'">'+data[item]+'</option>';
-    }
-    select.append(optionsHTML);
-}
 function generateHTML(data){
     let directoriesHTML= new Array();
 
     let directoriesSelector = $(".file-manager__directories");
-    console.log(data);
     for(let item in data){
         if(data[item].type === "dir" && data[item].name.charAt(0) !== "."){
             directoriesHTML +=

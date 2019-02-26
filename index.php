@@ -19,6 +19,11 @@
                     <div class="file-manager__sort-option" data-active="0">По размеру</div>
                 </div>
             </div>
+            <div class="file-manager__search">
+                <form class="file-manager__search-form" onsubmit="return false;">
+                    <input class="file-manager__search-text" type="text" placeholder="поиск">
+                </form>
+            </div>
         </div>
         <div class="file-manager__directories">
         </div>

@@ -119,6 +119,7 @@ input[type = "submit"]:hover{
 }
 .file-manager__pager-container{
     display: flex;
+    align-items: center;
     justify-content: space-between;
 }
 .file-manager__sort{
@@ -142,4 +143,7 @@ input[type = "submit"]:hover{
 }
 .file-manager__sort-option:last-child{
     border-bottom: none;
+}
+.file-manager__search-text{
+    margin: 0;
 }

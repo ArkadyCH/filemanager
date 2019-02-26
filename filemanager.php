@@ -2,14 +2,14 @@
 if($_POST['action'] == "getDirectories"){
     getDirectoriesByPath($_POST['path']);
 }
-else if($_POST['action'] == "getAllDirectories"){
-    getAllDirectories();
-}
 else if($_POST['action'] == "createDirectory"){
     createDirectory($_POST);
 }
 else if($_POST['action'] == "deleteDirectory"){
     deleteDirectory($_POST['path']);
+}
+else if($_POST['action'] == 'searchData'){
+    getDataByName($_POST['name']);
 }
 else if($_FILES){
     uploadFile($_POST['path'],$_FILES['file']);
@@ -29,18 +29,20 @@ function getDirectoriesByPath($path){
     echo json_encode($array);
 }
 
-function getAllDirectories(){
-    $root = '.';
+function getDataByName($name){
     $iter = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator($root, RecursiveDirectoryIterator::SKIP_DOTS),
+        new RecursiveDirectoryIterator('.', RecursiveDirectoryIterator::SKIP_DOTS),
         RecursiveIteratorIterator::SELF_FIRST
     );
-    $paths = array($root);
+    $paths = array();
     foreach ($iter as $path => $dir) {
-        if(is_dir($dir) && strpos($dir,".\\.git") !== 0 && strpos($dir,".\\.idea") !== 0)
-            $paths[] = iconv("Windows-1251", "UTF-8", $path);
+        if(stristr ($dir,$name) && strpos($dir,".\\.git") !== 0 && strpos($dir,".\\.idea") !== 0)
+            $paths[] = array(
+                'name' => iconv("Windows-1251", "UTF-8", array_pop(explode('\\', $path))),
+                'type' => iconv("Windows-1251", "UTF-8", is_dir($path) ? 'dir' : 'file'),
+                'path' => iconv("Windows-1251", "UTF-8", $path)
+            );
     }
-
     echo json_encode($paths);
 }
 
@@ -48,7 +50,7 @@ function createDirectory($data){
     $path = iconv('utf-8', 'cp1251', $data['path'].'\\'.$data['name']);
     $countNesting = substr_count($path, '\\');
 
-    if ($countNesting <= 10 && !file_exists($path)) {
+    if ($countNesting <= 11 && !file_exists($path)) {
         mkdir($path, 0700 , true);
     }
 }
