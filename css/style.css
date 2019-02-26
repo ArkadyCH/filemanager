@@ -130,12 +130,15 @@ input[type = "submit"]:hover{
 .file-manager__sort-options{
     display: none;
     position: absolute;
-
+    box-shadow: 0 0 10px 2px #ccc;
 }
 .file-manager__sort-option{
-    border: 1px solid black;
+    border-bottom: 1px solid black;
     padding: 10px;
     cursor: pointer;
     width: 100px;
     background: #ffffff;
+}
+.file-manager__sort-option:last-child{
+    border-bottom: none;
 }

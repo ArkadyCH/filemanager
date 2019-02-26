@@ -22,7 +22,8 @@ function getDirectoriesByPath($path){
         $array[] = array(
             'name' => iconv("Windows-1251", "UTF-8", $item->getFileName()) ,
             'type' => $item->getType() ,
-            'path' => iconv("Windows-1251", "UTF-8", $item->getPathName())
+            'path' => iconv("Windows-1251", "UTF-8", $item->getPathName()),
+            'size' => iconv("Windows-1251", "UTF-8", $item->getSize())
         );
     }
     echo json_encode($array);

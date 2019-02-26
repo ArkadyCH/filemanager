@@ -1,5 +1,6 @@
 $( document ).ready(function() {
     let root = ".";
+    let sortName = "default";
     updateContent(root,'default');
     //getAllDirectories("getAllDirectories");
 
@@ -20,7 +21,7 @@ $( document ).ready(function() {
 
     $('.file-manager__directories').on("click", ".file-manager__delete", function () {
         let path = $(this).get(0).getAttribute('data-path');
-        deleteDirectory(path,root);
+        deleteDirectory(path,root,sortName);
     });
     $('.file-manager__sort').on("click", ".file-manager__sort-img", function () {
         let option = $('.file-manager__sort-options');
@@ -31,12 +32,23 @@ $( document ).ready(function() {
     });
     $('.file-manager__sort-options').on("click", ".file-manager__sort-option", function () {
         let option = $(this).text();
-        alert('option: ' + option);
+        if(option === "По порядку"){
+            sortName = "default";
+            updateContent(root,sortName)
+        }
+        if(option === "По имени"){
+            sortName = "name/dsc";
+            updateContent(root,sortName)
+        }
+        if(option === "По размеру"){
+            sortName = "file/dsc";
+            updateContent(root,sortName)
+        }
     });
 
     $('.create-directory__form').submit(function() {
         let form = $(this);
-        createDirictory(form,root);
+        createDirictory(form,root,sortName);
     });
     $('.upload-file__form').submit(function() {
         uploadFile(root);
@@ -63,24 +75,24 @@ function getAllDirectories(data){
         dataType: "json"
     });
 }
-function createDirictory(form,root){
+function createDirictory(form,root,sort){
     let name = $( "input[type=text][name=name]" ).val();
     $.ajax({
         type: "post",
         url: "filemanager.php",
         data: {'action' : 'createDirectory', 'name' : name , 'path' : root},
         success: function(data){
-            updateContent(root);
+            updateContent(root,sort);
         }
     });
 }
-function deleteDirectory(path,root){
+function deleteDirectory(path,root,sort){
     $.ajax({
         type: "post",
         url: "filemanager.php",
         data: {'action' : 'deleteDirectory' , 'path' : path},
         success: function(data){
-            updateContent(root);
+            updateContent(root,sort);
         }
     });
 }
@@ -99,7 +111,7 @@ function uploadFile(path){
             processData: false,
             data: form_data,
             success: function(data){
-                updateContent(path);
+                updateContent(path,'default');
             }
         });
     }
@@ -111,14 +123,13 @@ function outputData(data){
     for(let item in data){
         optionsHTML += '<option value="'+data[item]+'">'+data[item]+'</option>';
     }
-
     select.append(optionsHTML);
 }
 function generateHTML(data){
     let directoriesHTML= new Array();
 
     let directoriesSelector = $(".file-manager__directories");
-
+    console.log(data);
     for(let item in data){
         if(data[item].type === "dir" && data[item].name.charAt(0) !== "."){
             directoriesHTML +=
@@ -134,7 +145,9 @@ function generateHTML(data){
             };
             directoriesHTML += '</div>';
         }
-        else if(data[item].name.charAt(0) !== "."){
+    }
+    for(let item in data){
+        if(data[item].type === "file" && data[item].name.charAt(0) !== "."){
             directoriesHTML +=
                 '<div class="file-manager__fle" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
                 '    <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +
@@ -176,12 +189,27 @@ function updateContent(path,sort){
 
 function sortData(data,sort){
     if(sort === "default"){
-        for(let item in data){
-            if(data[item].type === "file"){
-                data.push(data.splice(item, 1)[0]);
-            }
-        }
         return data;
+    }
+    if(sort === "name/dsc"){
+        return data.reverse();
+    }
+    if(sort === "file/asc"){
+        return data.sort(sortBySize);
+    }
+    if(sort === "file/dsc"){
+        return reverseFiles(data.sort(sortBySize));
+    }
+    return data;
+}
+function sortBySize(a,b){
+    return a.size-b.size;
+}
+function reverseFiles(data){
+    for(let item in data){
+        if(data[item].type === "file"){
+            data.unshift(data.splice(item, 1)[0]);
+        }
     }
     return data;
 }

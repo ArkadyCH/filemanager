@@ -37,7 +37,7 @@
         <form class="upload-file__form" onsubmit="return false;" enctype="multipart/form-data">
             <div class="upload-file__input-name">Выберите файл:</div>
             <input class="upload-file__input" type="file" placeholder="Название" name="file"">
-            <input class="upload-file__submit" type="submit" value="Создать">
+            <input class="upload-file__submit" type="submit" value="Загрузить">
         </form>
     </div>
 </div>
