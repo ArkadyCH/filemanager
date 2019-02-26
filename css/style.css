@@ -2,6 +2,7 @@ body{
     width: 1330px;
     margin:  0 auto;
     font-family: Raleway, sans-serif;
+    user-select: none;
 }
 h1{
     font-size: 22px;

@@ -15,9 +15,8 @@
             <div class="file-manager__sort">
                 <img class="file-manager__sort-img" src="/img/sort.png">
                 <div class="file-manager__sort-options">
-                    <div class="file-manager__sort-option">По порядку</div>
-                    <div class="file-manager__sort-option">По имени</div>
-                    <div class="file-manager__sort-option">По размеру</div>
+                    <div class="file-manager__sort-option" data-active="0">По имени</div>
+                    <div class="file-manager__sort-option" data-active="0">По размеру</div>
                 </div>
             </div>
         </div>

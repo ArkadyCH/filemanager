@@ -1,7 +1,7 @@
 $( document ).ready(function() {
     let root = ".";
-    let sortName = "default";
-    updateContent(root,'default');
+    let sortName = "name/asc";
+    updateContent(root,sortName);
     //getAllDirectories("getAllDirectories");
 
     $('.file-manager__directories').on("click", ".file-manager__directory", function () {
@@ -31,17 +31,30 @@ $( document ).ready(function() {
             option.css('display','none');
     });
     $('.file-manager__sort-options').on("click", ".file-manager__sort-option", function () {
-        let option = $(this).text();
-        if(option === "По порядку"){
-            sortName = "default";
-            updateContent(root,sortName)
-        }
-        if(option === "По имени"){
+        let option = $(this);
+        let optionActive = option.get(0).getAttribute('data-active');
+        if(option.text() === "По имени" && optionActive === "0"){
+            option.next().attr('data-active' , '0');
+            option.attr('data-active' , '1');
             sortName = "name/dsc";
             updateContent(root,sortName)
         }
-        if(option === "По размеру"){
+        if(option.text() === "По имени" && optionActive === "1"){
+            option.next().attr('data-active' , '0');
+            option.attr('data-active' , '0');
+            sortName = "name/asc";
+            updateContent(root,sortName)
+        }
+        if(option.text() === "По размеру" && optionActive === "0"){
+            option.prev().attr('data-active' , '0');
+            option.attr('data-active' , '1');
             sortName = "file/dsc";
+            updateContent(root,sortName)
+        }
+        if(option.text() === "По размеру" && optionActive === "1"){
+            option.prev().attr('data-active' , '0');
+            option.attr('data-active' , '0');
+            sortName = "file/asc";
             updateContent(root,sortName)
         }
     });
@@ -188,7 +201,7 @@ function updateContent(path,sort){
 }
 
 function sortData(data,sort){
-    if(sort === "default"){
+    if(sort === "name/asc"){
         return data;
     }
     if(sort === "name/dsc"){
