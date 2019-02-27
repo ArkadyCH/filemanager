@@ -8,13 +8,13 @@ $( document ).ready(function() {
         let type = $(this).get(0).getAttribute('data-type');
 
         if(type === "dir"){
-            updateContent(path,'default');
+            updateContent(path,sortName);
             root = path;
         }
     });
     $('.file-manager__pager').on("click", ".file-manager__pager-directory", function () {
         let path = $(this).get(0).getAttribute('data-path');
-        updateContent(path,'default');
+        updateContent(path,sortName);
         root = path;
     });
 
@@ -80,7 +80,16 @@ function getDirectoriesByPath(path,sort){
         url: "filemanager.php",
         data: {'action' : 'getDirectories' , 'path': path},
         success: function(data){
-            generateHTML(sortData(data,sort));
+            if(data !== "Dir does not exist"){
+                generateHTML(sortData(data,sort));
+            }
+            else {
+                alert(data);
+                updateContent('.',sort);
+            }
+        },
+        fail: function(){
+            console.log('fail');
         },
         dataType: "json"
     });
@@ -102,7 +111,7 @@ function createDirictory(form,root,sort){
         type: "post",
         url: "filemanager.php",
         data: {'action' : 'createDirectory', 'name' : name , 'path' : root},
-        success: function(data){
+        success: function(){
             updateContent(root,sort);
         }
     });
@@ -112,7 +121,7 @@ function deleteDirectory(path,root,sort){
         type: "post",
         url: "filemanager.php",
         data: {'action' : 'deleteDirectory' , 'path' : path},
-        success: function(data){
+        success: function(){
             updateContent(root,sort);
         }
     });
@@ -131,8 +140,8 @@ function uploadFile(path){
             contentType: false,
             processData: false,
             data: form_data,
-            success: function(data){
-                updateContent(path,'default');
+            success: function(){
+                updateContent(path,'name/asc');
             }
         });
     }

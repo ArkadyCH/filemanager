@@ -16,17 +16,22 @@ else if($_FILES){
 }
 
 function getDirectoriesByPath($path){
-    $iterator = new FilesystemIterator(iconv('utf-8', 'cp1251', $path));
-    $array = array();
-    foreach ($iterator as $item){
-        $array[] = array(
-            'name' => iconv("Windows-1251", "UTF-8", $item->getFileName()) ,
-            'type' => $item->getType() ,
-            'path' => iconv("Windows-1251", "UTF-8", $item->getPathName()),
-            'size' => iconv("Windows-1251", "UTF-8", $item->getSize())
-        );
+    if(strpos($path,'.') === 0 && is_dir($path)){
+        $iterator = new FilesystemIterator(iconv('utf-8', 'cp1251', $path));
+        $array = array();
+        if($iterator){
+            foreach ($iterator as $item){
+                $array[] = array(
+                    'name' => iconv("Windows-1251", "UTF-8", $item->getFileName()) ,
+                    'type' => $item->getType() ,
+                    'path' => iconv("Windows-1251", "UTF-8", $item->getPathName()),
+                    'size' => iconv("Windows-1251", "UTF-8", $item->getSize())
+                );
+            }
+            echo json_encode($array);
+        }
     }
-    echo json_encode($array);
+    else echo json_encode('Dir does not exist');
 }
 
 function getDataByName($name){
