@@ -60,19 +60,21 @@ function createDirectory($data){
     }
 }
 function deleteDirectory($dir){
-    $iterator = new RecursiveIteratorIterator(
-        new RecursiveDirectoryIterator(iconv('utf-8', 'cp1251', $dir)),
-        RecursiveIteratorIterator::CHILD_FIRST
-    );
+    if(strpos($dir,'.') === 0 &&is_dir($dir)){
+        $iterator = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator(iconv('utf-8', 'cp1251', $dir)),
+            RecursiveIteratorIterator::CHILD_FIRST
+        );
 
-    foreach ($iterator as $path) {
-        if ($path->isDir()) {
-            rmdir((string)$path);
-        } else {
-            unlink((string)$path);
+        foreach ($iterator as $path) {
+            if ($path->isDir()) {
+                rmdir((string)$path);
+            } else {
+                unlink((string)$path);
+            }
         }
+        rmdir($dir);
     }
-    rmdir($dir);
 }
 
 function uploadFile($path , $file){
@@ -85,6 +87,6 @@ function uploadFile($path , $file){
             move_uploaded_file($file['tmp_name'], $fullPath);
         }
         else
-            echo $file['name'];
+            echo "Тип файла '$ext' не поддерживается, выберите файл с расширением txt,jpg,jpeg,gif,ico";
     }
 }

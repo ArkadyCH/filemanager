@@ -88,9 +88,6 @@ function getDirectoriesByPath(path,sort){
                 updateContent('.',sort);
             }
         },
-        fail: function(){
-            console.log('fail');
-        },
         dataType: "json"
     });
 }
@@ -140,8 +137,11 @@ function uploadFile(path){
             contentType: false,
             processData: false,
             data: form_data,
-            success: function(){
-                updateContent(path,'name/asc');
+            success: function(data){
+                if(data)
+                    alert(data);
+                else
+                    updateContent(path,'name/asc');
             }
         });
     }
