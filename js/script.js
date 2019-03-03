@@ -154,10 +154,11 @@ function uploadFile(path){
 }
 function generateHTML(data){
     let directoriesHTML= new Array();
+    let dirWithImmunity = ["js","css","img",".idea"];
 
     let directoriesSelector = $(".file-manager__directories");
     for(let item in data){
-        if(data[item].type === "dir" && data[item].name.charAt(0) !== "."){
+        if(data[item].type === "dir"){
             directoriesHTML +=
                 '<div class="file-manager__container">\n' +
                 '    <div class="file-manager__directory" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
@@ -166,14 +167,14 @@ function generateHTML(data){
                 '        </div>\n' +
                 '        <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +
                 '    </div>\n';
-            if(data[item].name !== "js" && data[item].name !== "css" && data[item].name !== "img"){
+            if(!dirWithImmunity.includes(data[item].name)){
                 directoriesHTML += '    <div class="file-manager__delete" data-path="'+data[item].path+'"><img class="file-manager__delete-icon"src="/img/delete.png"></div>\n'
             };
             directoriesHTML += '</div>';
         }
     }
     for(let item in data){
-        if(data[item].type === "file" && data[item].name.charAt(0) !== "."){
+        if(data[item].type === "file"){
             directoriesHTML +=
                 '<div class="file-manager__fle" data-path="'+data[item].path+'" data-type="'+data[item].type+'">\n' +
                 '    <div class="file-manager__directory-name">' + data[item].name +'</div>\n' +

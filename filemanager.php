@@ -16,17 +16,18 @@ else if($_FILES){
 }
 
 function getDirectoriesByPath($path){
-    if(strpos($path,'.') === 0 && is_dir($path)){
+    if(strpos($path,'.') === 0 && strpos($path,'..') === false && is_dir($path)){
         $iterator = new FilesystemIterator(iconv('utf-8', 'cp1251', $path));
         $array = array();
         if($iterator){
             foreach ($iterator as $item){
-                $array[] = array(
-                    'name' => iconv("Windows-1251", "UTF-8", $item->getFileName()) ,
-                    'type' => $item->getType() ,
-                    'path' => iconv("Windows-1251", "UTF-8", $item->getPathName()),
-                    'size' => iconv("Windows-1251", "UTF-8", $item->getSize())
-                );
+                if(strpos($item->getFileName(),".git") !== 0)
+                    $array[] = array(
+                        'name' => iconv("Windows-1251", "UTF-8", $item->getFileName()) ,
+                        'type' => $item->getType() ,
+                        'path' => iconv("Windows-1251", "UTF-8", $item->getPathName()),
+                        'size' => iconv("Windows-1251", "UTF-8", $item->getSize())
+                    );
             }
             echo json_encode($array);
         }
@@ -41,7 +42,7 @@ function getDataByName($name){
     );
     $paths = array();
     foreach ($iter as $path) {
-        if(stristr (array_pop(explode('\\', $path)),$name) && strpos($path,".\\.git") !== 0 && strpos($path,".\\.idea") !== 0)
+        if(stristr (array_pop(explode('\\', $path)),$name) && strpos($path,".\\.git") !== 0)
             $paths[] = array(
                 'name' => iconv("Windows-1251", "UTF-8", array_pop(explode('\\', $path))),
                 'type' => iconv("Windows-1251", "UTF-8", is_dir($path) ? 'dir' : 'file'),
