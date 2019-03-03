@@ -1,2 +1,2 @@
 # filemanager
-![](show-project.gif.gif)
+![](show-project.gif)
