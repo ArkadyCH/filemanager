@@ -40,8 +40,8 @@ function getDataByName($name){
         RecursiveIteratorIterator::SELF_FIRST
     );
     $paths = array();
-    foreach ($iter as $path => $dir) {
-        if(stristr ($dir,$name) && strpos($dir,".\\.git") !== 0 && strpos($dir,".\\.idea") !== 0)
+    foreach ($iter as $path) {
+        if(stristr (array_pop(explode('\\', $path)),$name) && strpos($path,".\\.git") !== 0 && strpos($path,".\\.idea") !== 0)
             $paths[] = array(
                 'name' => iconv("Windows-1251", "UTF-8", array_pop(explode('\\', $path))),
                 'type' => iconv("Windows-1251", "UTF-8", is_dir($path) ? 'dir' : 'file'),
