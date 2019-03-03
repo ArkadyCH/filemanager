@@ -55,7 +55,7 @@ function createDirectory($data){
     $path = iconv('utf-8', 'cp1251', $data['path'].'\\'.$data['name']);
     $countNesting = substr_count($path, '\\');
 
-    if ($countNesting <= 11 && !file_exists($path)) {
+    if ($countNesting <= 10 && !file_exists($path)) {
         mkdir($path, 0700 , true);
     }
 }

@@ -24,10 +24,15 @@ $( document ).ready(function() {
     });
     $('.file-manager__sort').on("click", ".file-manager__sort-img", function () {
         let option = $('.file-manager__sort-options');
-        if(option.css('display') === "none"){
-            option.css('display','block');
-        }else
-            option.css('display','none');
+        showOrHideDiv(option);
+    });
+    $('.file-manager__add-folder').on("click", ".file-manager__add-folder-img", function () {
+        let container = $('.create-directory');
+        showOrHideDiv(container);
+    });
+    $('.file-manager__add-file').on("click", ".file-manager__add-file-img", function () {
+        let container = $('.upload-file');
+        showOrHideDiv(container);
     });
     $('.file-manager__search-form').on("keyup", ".file-manager__search-text", function () {
         let str = $(this).val();
@@ -233,4 +238,10 @@ function reverseFiles(data){
         }
     }
     return data;
+}
+function showOrHideDiv(container){
+    if(container.css('display') === "none"){
+        container.css('display','block');
+    }else
+        container.css('display','none');
 }

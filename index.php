@@ -24,25 +24,28 @@
                     <input class="file-manager__search-text" type="text" placeholder="поиск">
                 </form>
             </div>
+            <div class="file-manager__add-folder">
+                <img class="file-manager__add-folder-img" src="/img/add-folder.png">
+                <div class="create-directory">
+                    <form class="create-directory__form" onsubmit="return false;">
+                        <div class="create-directory__input-name">Введите название:</div>
+                        <input class="create-directory__input" type="text" placeholder="Название" name="name" value="New folder">
+                        <input class="create-directory__submit" type="submit" value="Создать">
+                    </form>
+                </div>
+            </div>
+            <div class="file-manager__add-file">
+                <img class="file-manager__add-file-img" src="/img/add-file.png">
+                <div class="upload-file">
+                    <form class="upload-file__form" onsubmit="return false;" enctype="multipart/form-data">
+                        <input class="upload-file__input" type="file" placeholder="Название" name="file"">
+                        <input class="upload-file__submit" type="submit" value="Загрузить">
+                    </form>
+                </div>
+            </div>
         </div>
         <div class="file-manager__directories">
         </div>
-    </div>
-    <div class="create-directory">
-        <h1>Создать папку</h1>
-        <form class="create-directory__form" onsubmit="return false;">
-            <div class="create-directory__input-name">Введите название:</div>
-            <input class="create-directory__input" type="text" placeholder="Название" name="name" value="New folder">
-            <input class="create-directory__submit" type="submit" value="Создать">
-        </form>
-    </div>
-    <div class="upload-file">
-        <h1>Загрузить файл</h1>
-        <form class="upload-file__form" onsubmit="return false;" enctype="multipart/form-data">
-            <div class="upload-file__input-name">Выберите файл:</div>
-            <input class="upload-file__input" type="file" placeholder="Название" name="file"">
-            <input class="upload-file__submit" type="submit" value="Загрузить">
-        </form>
     </div>
 </div>
 

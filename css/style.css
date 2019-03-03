@@ -1,6 +1,6 @@
 body{
     width: 1330px;
-    margin:  0 auto;
+    margin:  10% auto;
     font-family: Raleway, sans-serif;
     user-select: none;
 }
@@ -25,6 +25,7 @@ input{
 }
 .file-manager__pager{
     display: flex;
+    margin-right: 10px;
 }
 .file-manager__pager-directory{
     cursor: pointer;
@@ -108,12 +109,6 @@ input[type = "submit"]:hover{
     background: #b39aff;
     color: #ffffff;
 }
-.create-directory{
-    margin-left: 20px;
-}
-.upload-file{
-    margin-left: 20px;
-}
 .upload-file input[type = "submit"]{
     margin-top: 11px;
 }
@@ -124,6 +119,7 @@ input[type = "submit"]:hover{
 }
 .file-manager__sort{
     position: relative;
+    margin-right: 10px;
 }
 .file-manager__sort-img{
     padding: 0;
@@ -146,4 +142,29 @@ input[type = "submit"]:hover{
 }
 .file-manager__search-text{
     margin: 0;
+    margin-right: 10px;
+}
+.file-manager__add-folder-img{
+    cursor: pointer;
+    max-width: 30px;
+    max-height: 30px;
+}
+.file-manager__add-file-img{
+    cursor: pointer;
+    max-width: 30px;
+    max-height: 30px;
+}
+.file-manager__add-folder{
+    position: relative;
+    margin-right: 10px;
+}
+.file-manager__add-file{
+    position: relative;
+}
+.create-directory,.upload-file{
+    display: none;
+    position: absolute;
+    background: #ffffff;
+    box-shadow: 0 0 10px 2px #ccc;
+    padding: 10px;
 }
